@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
-const fs = require('fs');
 
 //Body parser midleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,11 +18,17 @@ const sequelize = require('./util/databases');
 const Students = require('./models/students');
 const Tasks = require('./models/tasks');
 const Teacher = require('./models/teacher');
+const Answers = require('./models/answers');
 
+Answers.belongsTo(Students);
+Answers.belongsTo(Tasks);
+Tasks.belongsTo(Teacher);
+
+// sequelize.sync({ force: true})
 sequelize.sync()
-  .then(() => Tasks.create(
-    JSON.parse(fs.readFileSync('./data/tasks.json')) 
-  ))
+  .then(() => {
+    console.log('Table created');
+  } )
   .catch(err => console.log(err) );
 
 //Avoid Access-Control-Allow-Origin Error

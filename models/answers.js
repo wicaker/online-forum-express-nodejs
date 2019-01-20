@@ -1,23 +1,20 @@
 const Sequelize = require('sequelize');
+
 const sequelize = require('../util/databases');
 
-const Taks =  sequelize.define('tasks', {
-  id:{
+const Answers =  sequelize.define('answers', {
+  id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
   },
-  material:{
+  answer_result: {
     type: Sequelize.STRING,
-    allowNullL:true
-  },
-  challenge:{
-    type: Sequelize.STRING,
-    allowNull:true
+    allowNull: true
   },
   createdAt: Sequelize.DATE,
   updatedAt: Sequelize.DATE
 })
 
-module.exports = Taks;
+module.exports = Answers;
